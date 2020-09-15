@@ -1,4 +1,3 @@
-//testing
 package com.dtcc.checkers;
 
 import java.io.File;
@@ -15,9 +14,50 @@ public class Model {
     }
 
     public String[][] getBoard() {
-        return null;
+        return populateNewBoard();
     }
+  
+    public String[][] populateNewBoard() {
+    	String board[][] = new String[8][8];
+		for(int i = 0; i <= 7; i++) {
+			for(int j = 0; j <= 7; j++) {
+				board[i][j] = "EMPTY";
+				if((i % 2 == 0 && j % 2 == 1) || (i % 2 == 1 && j % 2 == 0)) {
+					if(i<3) {
+						board[i][j] = "R-P";
+					}
+					if(i>4) {
+						board[i][j] = "B-P";
+					}
+				}
+			}
+		}
+		return board;
+    }
+    
+    
+    public void save(){
+		try {
+			
+			PrintWriter out = new PrintWriter(new File(File));
+			
+			String board[][] = getBoard();
+			
+			//Rows
+			for(int y = 0; y < board.length; y++) {
+				//Columns
+				for(int x = 0; x < board[x].length; x++) {
+					out.print(board[y][x] + " ");
+				}
+				out.println();
+			}
+			}
+		catch(FileNotFoundException e) {
+			
+		}
 
+    }
+  
     public static void load(){
     	try {
     		String temp_board[][] = new String[8][8];
@@ -39,25 +79,26 @@ public class Model {
 			//Do Something
 		}
     }
-	
-	public static void save(String board[][]){
+   public void save(){
 		try {
+			
 			PrintWriter out = new PrintWriter(new File(File));
-			String temp_board[][] = board;
-			System.out.println(temp_board.length);
+			
+			String board[][] = getBoard();
+			
 			//Rows
-			for(int y = 0; y < temp_board.length; y++) {
+			for(int y = 0; y < board.length; y++) {
 				//Columns
-				for(int x = 0; x < temp_board.length; x++) {
-					out.print(temp_board[y][x] + " ");
-					System.out.print(temp_board[y][x] + " ");
+				for(int x = 0; x < board[x].length; x++) {
+					out.print(board[y][x] + " ");
 				}
 				out.println();
 			}
-			out.close();
 			}
 		catch(FileNotFoundException e) {
-			//Do something
+			
 		}
+
     }
+	
 }
